@@ -70,9 +70,9 @@ CREATE TABLE entrada_insumo (
 );
 
 -- =====================================================
--- 🧩 TABLA: entrada_producto
+-- 🧩 TABLA: detalle_entrada
 -- =====================================================
-CREATE TABLE entrada_producto (
+CREATE TABLE detalle_entrada (
     id_entrada INT,
     id_producto INT,
     cantidad INT NOT NULL,

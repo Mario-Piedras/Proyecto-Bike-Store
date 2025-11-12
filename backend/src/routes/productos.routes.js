@@ -5,7 +5,6 @@ const router = express.Router();
 const crud = new CrudController();
 
 const tabla = 'productos';
-const idCampo = 'id_producto';
 
 //Rutas para operaciones CRUD
 router.get("/", async (req, res) => {
@@ -20,7 +19,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const dato = await crud.obtenerUno(tabla, idCampo, req.params.id);
+        const dato = await crud.obtenerUno(tabla, {id_producto: req.params.id});
         res.json(dato);
     } catch (error){
         res.status(500).json({ error: error.message || "Error al obtener el producto" });
@@ -29,7 +28,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const nuevoDato = await crud.crear(tabla, idCampo, req.body);
+        const nuevoDato = await crud.crear(tabla, {id_producto: req.params.id}, req.body);
         res.status(201).json(nuevoDato);
     } catch (error) {
         console.error("Error al crear el producto:", error);
@@ -39,7 +38,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        const datoActualizado = await crud.actualizar(tabla, idCampo, req.params.id, req.body);
+        const datoActualizado = await crud.actualizar(tabla, {id_producto: req.params.id}, req.body);
         res.json(datoActualizado);
     } catch (error) {
         res.status(500).json({ error: error.message || "Error al actualizar el producto" });
@@ -49,7 +48,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const resultado = await crud.eliminar(tabla, idCampo, id);
+        const resultado = await crud.eliminar(tabla, {id_producto: req.params.id});
         res.json(resultado);
     } catch (error) {
         if (error.message.includes('Registro no encontrado')) {
